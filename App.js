@@ -1,43 +1,22 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View} from 'react-native';
+import Login from './Masuk';
+import SignUp from './SignUp';
+import Send from './Send';
 
-const CustomButton = () => {
+
+
+
+
+const App = () => {
   return (
-    <View style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-      flexDirection: 'row',
-      padding: 20,
-      marginBottom: 40,
-      
-    }}>
-      <ButtonComponent backgroundColor= 'red' text='login'/>
-      <ButtonComponent backgroundColor= 'blue' text='Register'/>
+    <View>
+      <SignUp />
+      {/* <Login /> */}
+      {/* <Send /> */}
     </View>
   );
 }
 
 
-const ButtonComponent = ({ backgroundColor, text }) => {
-  return (
-    <View style={{
-      backgroundColor: backgroundColor,
-      width: 150,
-      height: 70,
-      borderRadius: 10,
-      marginLeft: 10
-    }}>
-      <Text style={{
-        color: 'white',
-        textAlign: 'center',
-        lineHeight: 70,
-        fontSize: 25,
-        fontWeight: 'bold',
-      }}>
-        {text}
-      </Text>
-    </View>
-  )
-}
-export default CustomButton;
+export default App;

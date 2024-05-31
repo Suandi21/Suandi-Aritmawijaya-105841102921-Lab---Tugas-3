@@ -1,17 +1,23 @@
+import React from 'react';
+import { View, Text } from 'react-native';
+
 const ButtonComponent = ({ backgroundColor, text }) => {
     return (
       <View style={{
         backgroundColor: backgroundColor,
-        width: 150,
-        height: 70,
-        borderRadius: 10,
-        marginLeft: 10
+        width: 343,
+        height: 48,
+        borderRadius: 25,
+        marginLeft: 20,
+        marginTop: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
         <Text style={{
           color: 'white',
           textAlign: 'center',
-          lineHeight: 70,
-          fontSize: 25,
+          lineHeight: 30,
+          fontSize: 20,
           fontWeight: 'bold',
         }}>
           {text}
@@ -19,3 +25,5 @@ const ButtonComponent = ({ backgroundColor, text }) => {
       </View>
     )
   }
+
+  export default ButtonComponent;
