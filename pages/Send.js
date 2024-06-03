@@ -1,10 +1,10 @@
 import React from 'react';
 import {View} from 'react-native';
-import Judul from './compenent/Judul';
-import Input from './compenent/Input';
-import Teks from './compenent/Teks'
-import Button from './compenent/Button';
-import Gambar from './compenent/Gambar';
+import Judul from '../compenent/Judul';
+import Input from '../compenent/Input';
+import Teks from '../compenent/Teks'
+import Button from '../compenent/Button';
+import Gambar from '../compenent/Gambar';
 
 const Send = () => {
     return (
