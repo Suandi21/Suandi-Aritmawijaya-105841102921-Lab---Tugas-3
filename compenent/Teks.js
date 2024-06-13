@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 10,
         alignItems: 'center',
-        marginLeft:25,
     },
     input: {
         backgroundColor: 'white',

@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 
 
-const Judul = ({text}) => {
+const Judul = ({text = "Default Text", color = "black", fontSize = 34 }) => {
 
     const [fontsLoaded, fontError] = useFonts({
         'Bold': require('../assets/fonts/Metropolis-Bold.otf'),
@@ -26,7 +26,9 @@ const Judul = ({text}) => {
         }}>
             <Text style={{
                 fontSize :  34,
+                fontSize : Number(fontSize),
                 fontFamily: 'Bold',
+                color: color
                 }}>
                 {text}
             </Text>
