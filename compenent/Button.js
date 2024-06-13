@@ -1,29 +1,50 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useFonts } from 'expo-font';        
 
-const ButtonComponent = ({ backgroundColor, text }) => {
+
+
+const Button = ({backgroundColor, text, placeholder}) => {
+
+    const [fontsLoaded, fontError] = useFonts({
+ 
+        'Medium' : require('../assets/fonts/Metropolis-Medium.otf'),
+      });
+          if (!fontsLoaded) {
+            return (
+          <View>
+              <Text>Font tidak ditemukan !</Text>
+          </View>
+        );
+    }
+    
+
+
     return (
-      <View style={{
-        backgroundColor: backgroundColor,
-        width: 343,
-        height: 48,
-        borderRadius: 25,
-        marginLeft: 20,
-        marginTop: 30,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <Text style={{
-          color: 'white',
-          textAlign: 'center',
-          lineHeight: 30,
-          fontSize: 20,
-          fontWeight: 'bold',
+       
+        <View style={{
+            backgroundColor: backgroundColor,
+            placeholder: placeholder,
+            borderRadius: 25,
+            width: 326,
+            height: 48,
+            justifyContent: 'center',
+            alignItems: 'center',
+           marginLeft: 35,
+            marginBottom: 100
         }}>
-          {text}
+  
+        <Text style={{
+            color: 'white',
+            lineHeight: 10,
+            fontSize: 14,
+            fontWeight: 'bold',
+        }}>
+            {text}
         </Text>
-      </View>
+    </View>
+
     )
   }
-
-  export default ButtonComponent;
+  
+export default Button;

@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
+
 const Gambar = ({ imageSource }) => {
+    
+
     return (
 
             <View style={styles.container}>
@@ -13,6 +16,7 @@ const Gambar = ({ imageSource }) => {
 
 const styles = StyleSheet.create({
     container: {
+        flexDirection: 'column',
         width: 92,
         height: 64,
         marginTop: -5,

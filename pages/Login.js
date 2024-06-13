@@ -6,23 +6,17 @@ import Teks from '../compenent/Teks'
 import Button from '../compenent/Button';
 import Gambar from '../compenent/Gambar';
 
-const SignUp = () => {
+const Login = () => {
     return (
         <View>
             <View style={{
            
             }}>
-            <Judul text="SignUp" />
+            <Judul text="Login" />
             </View>
             
             <View style={{
-               marginTop: 20
-            }}>
-                <Teks placeholder="Nema" />
-
-            </View>
-            <View style={{
-
+               marginTop: 30
             }}>
                 <Teks placeholder="Email" />
             </View>
@@ -41,11 +35,11 @@ const SignUp = () => {
             <View style={{
                 marginTop: 40
             }}>
-                <Button text="SIGN UP" backgroundColor= '#FF0000' />
+                <Button text="LOGIN" backgroundColor= '#FF0000' />
             </View>
 
             <View style={{
-                marginTop: 25
+                marginTop: 70
             }}>
                 <Input text="Or login with social account" />
             </View>
@@ -64,4 +58,4 @@ const SignUp = () => {
     )
 }
 
-  export default SignUp;
+  export default Login;
