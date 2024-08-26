@@ -1,28 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFonts } from 'expo-font';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const profileData = {
-    orders: { title: 'My orders', subtitle: 'Already have 12 orders' },
-    addresses: { title: 'Shipping addresses', subtitle: '3 addresses' },
-    payments: { title: 'Payment methods', subtitle: 'Visa **34' },
-    promocodes: { title: 'Promocodes', subtitle: 'You have special promocodes' },
-    reviews: { title: 'My reviews', subtitle: 'Reviews for 4 items' },
-    settings: { title: 'Settings', subtitle: 'Notifications, password' }
-};
+const data = [
+    { id: '1', title: 'My orders', subtitle: 'Already have 12 orders' },
+    { id: '2', title: 'Shipping addresses', subtitle: '3 addresses' },
+    { id: '3', title: 'Payment methods', subtitle: 'Visa **34' },
+    { id: '4', title: 'Promocodes', subtitle: 'You have special promocodes' },
+    { id: '5', title: 'My reviews', subtitle: 'Reviews for 4 items' },
+    { id: '6', title: 'Settings', subtitle: 'Notifications, password' }
+];
 
-const ProfileListItem = ({ title, subtitle }) => (
-    <TouchableOpacity style={profileStyles.itemContainer}>
-        <View>
-            <Text style={profileStyles.itemTitle}>{title}</Text>
-            <Text style={profileStyles.itemSubtitle}>{subtitle}</Text>
-        </View>
-        <Image source={require('../assets/icons/right.png')} style={profileStyles.itemArrow} />
-    </TouchableOpacity>
-);
+const ProfileScreen = () => {
 
-const ProfileView = () => {
     const [fontsLoaded] = useFonts({
         'Bold': require('../assets/fonts/Metropolis-Bold.otf'),
         'Medium': require('../assets/fonts/Metropolis-Medium.otf'),
@@ -32,45 +24,51 @@ const ProfileView = () => {
 
     if (!fontsLoaded) {
         return (
-            <View style={profileStyles.errorContainer}>
-                <Text style={profileStyles.errorText}>Font tidak ditemukan!!!</Text>
+            <View style={styles.container}>
+                <Text style={styles.errorText}>Font tidak ditemukan!!!</Text>
             </View>
         );
     }
 
-    const profileItems = Object.keys(profileData).map(key => ({ id: key, ...profileData[key] }));
-
     return (
-        <SafeAreaView style={profileStyles.safeArea}>
-            <View style={profileStyles.headerContainer}>
-                <Image source={require('../assets/icons/search.png')} style={profileStyles.searchIcon} />
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Image source={require('../assets/icon/search.png')} style={styles.searchIcon} />
             </View>
-            <View style={profileStyles.profileHeader}>
-                <Text style={profileStyles.profileHeaderTitle}>My profile</Text>
-                <View style={profileStyles.profileDetails}>
-                    <Image source={require('../assets/suandi.jpeg')} style={profileStyles.profileImage} />
+            <View style={styles.profileHeader}>
+                <Text style={styles.profileTitle}>My profile</Text>
+                <View style={styles.profileInfo}>
+                    <Image source={require('../assets/suandi.jpeg')} style={styles.profileImage} />
                     <View>
-                        <Text style={profileStyles.profileName}>SUANDI ARITMAWIJAYA</Text>
-                        <Text style={profileStyles.profileEmail}>sandokeandoke@gmail.com</Text>
+                        <Text style={styles.profileName}>suandi aritmawijaya</Text>
+                        <Text style={styles.profileEmail}>sandokeandoke@gmail.com</Text>
                     </View>
                 </View>
             </View>
             <FlatList
-                data={profileItems}
-                renderItem={({ item }) => <ProfileListItem title={item.title} subtitle={item.subtitle} />}
+                data={data}
+                renderItem={({ item }) => (
+                    <TouchableOpacity style={styles.item}>
+                        <View>
+                            <Text style={styles.title}>{item.title}</Text>
+                            <Text style={styles.subtitle}>{item.subtitle}</Text>
+                        </View>
+                        <Image source={require('../assets/icon/right-icon.png')} style={styles.itemArrow} />
+                    </TouchableOpacity>
+                )}
                 keyExtractor={item => item.id}
-                style={profileStyles.flatList}
+                style={styles.list}
             />
         </SafeAreaView>
     );
 };
 
-const profileStyles = StyleSheet.create({
-    safeArea: {
+const styles = StyleSheet.create({
+    container: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    headerContainer: {
+    header: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         alignItems: 'center',
@@ -85,11 +83,11 @@ const profileStyles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 20,
     },
-    profileHeaderTitle: {
-        fontSize: 28,
+    profileTitle: {
+        fontSize: 30,
         fontFamily: 'Bold',
     },
-    profileDetails: {
+    profileInfo: {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 20,
@@ -109,11 +107,11 @@ const profileStyles = StyleSheet.create({
         color: '#888',
         fontFamily: 'Medium',
     },
-    flatList: {
+    list: {
         paddingHorizontal: 20,
         marginTop: 20,
     },
-    itemContainer: {
+    item: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -121,28 +119,23 @@ const profileStyles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#eee',
     },
-    itemTitle: {
+    title: {
         fontSize: 18,
         fontFamily: 'Bold',
     },
-    itemSubtitle: {
+    subtitle: {
         fontSize: 14,
         color: '#888',
         fontFamily: 'Medium',
     },
     itemArrow: {
-        fontSize: 18,
-        color: '#888',
-    },
-    errorContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: 24,
+        height: 24,
     },
     errorText: {
-        fontSize: 18,
+        fontSize: 16,
         color: 'red',
     },
 });
 
-export default ProfileView;
+export default ProfileScreen;

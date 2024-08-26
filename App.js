@@ -1,128 +1,132 @@
-import { StyleSheet, Text, View, TextInput, Button, Image } from 'react-native';
-import React, { useState } from 'react';
-import axios from 'axios';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as React from 'react';
+import { Image } from 'react-native';
 
-const LoginSimak = () => {
-  const [data, setData] = useState({
-    nim: '',
-    password: ''
-  });
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState('');
 
-  const onSubmit = () => {
-    axios.post('https://api.beasiswa.unismuh.ac.id/api/login', {
-      username: data.nim,
-      password: data.password
-    })
-      .then(response => {
-        if (response.status === 200) {
-          setUserData(response.data.data);
-          setError('');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-        setError('Ada kesalahan. Silahkan cek kembali nim dan password anda.');
-        setUserData(null);
-      });
-  }
+import BagAktif from './assets/icon/bag-activated.png';
+import BagNonAktif from './assets/icon/bag-inactive.png';
+import FavoritesAktif from './assets/icon/favorites-activated.png';
+import FavoritesNonAktif from './assets/icon/favorites-inactive.png';
+import HomeAktif from './assets/icon/home-activated.png';
+import HomeNonAktif from './assets/icon/home-inactive.png';
+import ProfilAktif from './assets/icon/profil-activated.png';
+import ProfilNonAktif from './assets/icon/profil-inactive.png';
+import ShopAktif from './assets/icon/shop-activated.png';
+import ShopNonAktif from './assets/icon/shop-inactive.png';
 
+import CategoriesScreen from './pages/Categories';
+import FavoriteScreen from './pages/Favorites';
+import Filters from './pages/Filter';
+import ForgotPassword from './pages/ForgetPassword.js';
+import Home from './pages/Home';
+import HomeMain from './pages/HomeMain';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Bag from './pages/BagPages';
+import Profil from './pages/ProfilPages'
+import Shop from './pages/ShopPages'
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const HomeStack = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          onChangeText={(value) => setData({ ...data, nim: value })}
-          placeholder="Nim"
-          placeholderTextColor="#aaa"
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={(value) => setData({ ...data, password: value })}
-          placeholder="Password"
-          placeholderTextColor="#aaa"
-          secureTextEntry
-        />
-        <Button title="Login" onPress={onSubmit} />
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
-      </View>
-      {userData && (
-        <View style={styles.userDataContainer}>
-          <Text style={styles.userDataText}>ID: {userData.id}</Text>
-          <Text style={styles.userDataText}>Username: {userData.username}</Text>
-          <Text style={styles.userDataText}>Name: {userData.nama}</Text>
-          <Text style={styles.userDataText}>Role: {userData.role}</Text>
-          <Image
-            style={styles.userImage}
-            source={{ uri: 'https://simakad.unismuh.ac.id/upload/mahasiswa/${userData.username}.jpg' }}
-          />
-        </View>
-      )}
-    </View>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+      <Stack.Screen name="HomeScreen" component={Home} />
+      <Stack.Screen name="HomeMain" component={HomeMain} />
+    </Stack.Navigator>
+  );
+};
+
+const ShopStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="ShopPages">
+      <Stack.Screen name="ShopScreen" component={Shop} options={{ headerShown: false }} />
+      <Stack.Screen name="Categories" component={CategoriesScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const FavoriteStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Favorite">
+      <Stack.Screen name="FavoriteScreen" component={FavoriteScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Filters" component={Filters} options={{ headerShown: false }} />
+    </Stack.Navigator>
+  );
+};
+
+function MyTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? HomeAktif : HomeNonAktif} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ShopPages"
+        component={ShopStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? ShopAktif : ShopNonAktif} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="BagPages"
+        component={Bag}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? BagAktif : BagNonAktif} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoriteStack}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? FavoritesAktif : FavoritesNonAktif} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ProfilPages"
+        component={Profil}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image source={focused ? ProfilAktif : ProfilNonAktif} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
-export default LoginSimak;
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="SignUp">
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Login" component={Login}  />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword}  />
+        <Stack.Screen name="MyTabs" component={MyTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="Filters" component={Filters}  />
+        <Stack.Screen name="FavoriteScreen" component={FavoriteScreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    padding: 20,
-  },
-  inputContainer: {
-    width: '100%',
-    maxWidth: 400,
-    padding: 20,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    marginBottom: 20,
-  },
-  input: {
-    height: 50,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 20,
-    paddingHorizontal: 10,
-    fontSize: 16,
-    color: '#333',
-  },
-  errorText: {
-    color: 'red',
-    marginTop: 10,
-    textAlign: 'center',
-  },
-  userDataContainer: {
-    width: '100%',
-    maxWidth: 400,
-    padding: 20,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-    alignItems: 'center',
-  },
-  userDataText: {
-    fontSize: 16,
-    color: '#333',
-    marginBottom: 5,
-  },
-  userImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginTop: 10,
-  },
-});
+export default App;

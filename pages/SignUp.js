@@ -1,15 +1,14 @@
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
 import Judul from '../compenent/Judul';
 import Input from '../compenent/Input';
 import Teks from '../compenent/Teks'
 import Button from '../compenent/Button';
 import Gambar from '../compenent/Gambar';
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
 
-    const navigation = useNavigation();
     return (
         <View>
             <View style={{}}>
@@ -42,13 +41,16 @@ const SignUp = () => {
             <View style={{
                 marginTop: 40
             }}>
+                
+                <TouchableOpacity onPress={() => navigation.navigate("Login")}>
                 <Button text="SIGN UP" backgroundColor= '#FF0000' />
+                </TouchableOpacity>
             </View>
 
             <View style={{
                 marginTop: -40
             }}>
-                <Input text="Or login with social account" />
+                <Input text="Or sing up with social account" />
             </View>
 
             <View style={{

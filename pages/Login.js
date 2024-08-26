@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, TouchableOpacity} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Judul from '../compenent/Judul';
-import Input from '../compenent/Input';
-import Teks from '../compenent/Teks'
+import { TouchableOpacity, View } from 'react-native';
+
 import Button from '../compenent/Button';
 import Gambar from '../compenent/Gambar';
+import Input from '../compenent/Input';
+import Judul from '../compenent/Judul';
+import Teks from '../compenent/Teks';
 
-const Login = () => {
-    const navigation = useNavigation();
+const Login = ({navigation}) => {
+
     return (
         <View>
             <View style={{
@@ -31,15 +31,18 @@ const Login = () => {
                 marginLeft: 250,
                 marginTop: 10
             }}>
-                 <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}>
+                 <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
                 <Input text="Forgot Password" />
                 </TouchableOpacity>
             </View>
-
+ 
             <View style={{
                 marginTop: 40
             }}>
-                <Button text="LOGIN" backgroundColor= '#FF0000' />
+
+            <TouchableOpacity onPress={() => navigation.navigate('MyTabs')}>
+            <Button backgroundColor="#FF0000" text="LOGIN" />
+            </TouchableOpacity>
             </View>
 
             <View style={{
